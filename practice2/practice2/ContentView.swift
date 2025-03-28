@@ -11,8 +11,16 @@ struct ContentView: View {
     @State private var isClicked: Bool = false
     @State private var clickCount: Int = 0
     
+    @AppStorage("username") private var username: String = "Minbol"
+    
     var body: some View {
         VStack {
+            Text("Hello, \(username)!")
+                .font(.title)
+            Button("Change Name") {
+                username = "Apple"
+            }
+                .padding(.bottom, 20)
             Text("현재 State 변수 값: \(isClicked)")
             Text("현재 Click Count: \(clickCount)")
             
