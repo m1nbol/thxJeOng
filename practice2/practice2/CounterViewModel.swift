@@ -12,6 +12,10 @@ import Foundation
 //}
 
 @Observable
-class CounterViewModel {
+//class CounterViewModel {
+//    var count = 0
+//}
+
+class Counter {
     var count = 0
 }

@@ -10,18 +10,27 @@ import SwiftUI
 struct CounterView: View {
     // @ObservedObject var viewModel: CounterViewModel = .init()
     // @StateObject var viewModel: CounterViewModel = .init()
-    var viewModel: CounterViewModel = .init()
+    // var viewModel: CounterViewModel = .init()
+    private var counter = Counter()
     
     var body: some View {
         VStack {
-            Text("\(viewModel.count)")
-            Button {
-                viewModel.count += 1
-            } label: {
-                Text("카운트 증가 버튼")
+            Text("Count: \(counter.count)")
+            Button("Increment") {
+                counter.count += 1
             }
+            ChildView(counter: counter)
         }
-        .padding()
+    }
+}
+
+struct ChildView: View {
+    @Bindable var counter: Counter
+    
+    var body: some View {
+        Button("Child Increment") {
+            counter.count += 1
+        }
     }
 }
 
