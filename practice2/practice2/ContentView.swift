@@ -13,14 +13,25 @@ struct ContentView: View {
     
     @AppStorage("username") private var username: String = "Minbol"
     
+    var screenSize: CGRect {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return .zero
+        }
+        return windowScene.screen.bounds
+    }
+    
+    
     var body: some View {
         VStack {
+            Text("Screen Width: \(screenSize.width)")
+            Text("Screen Height: \(screenSize.height)")
+                .padding(.bottom, 20)
             Text("Hello, \(username)!")
                 .font(.title)
             Button("Change Name") {
                 username = "Apple"
             }
-                .padding(.bottom, 20)
+            .padding(.bottom, 20)
             Text("현재 State 변수 값: \(isClicked)")
             Text("현재 Click Count: \(clickCount)")
             
