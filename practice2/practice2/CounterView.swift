@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CounterView: View {
     // @ObservedObject var viewModel: CounterViewModel = .init()
-    @StateObject var viewModel: CounterViewModel = .init()
+    // @StateObject var viewModel: CounterViewModel = .init()
+    var viewModel: CounterViewModel = .init()
     
     var body: some View {
         VStack {
@@ -19,8 +20,8 @@ struct CounterView: View {
             } label: {
                 Text("카운트 증가 버튼")
             }
-
         }
+        .padding()
     }
 }
 
