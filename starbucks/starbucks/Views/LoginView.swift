@@ -54,7 +54,7 @@ struct LoginView: View {
             
             Text("회원 서비스 이용을 위해 로그인 해주세요")
                 .font(.mainTextMedium16)
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray01)
                 .kerning(-0.8)
         }
         .frame(maxWidth: .infinity, alignment: .leading) // 여기서 leading 주면 frame 내에서 vstack 자체의 위치 결정
