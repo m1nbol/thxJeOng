@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "paySelected.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
