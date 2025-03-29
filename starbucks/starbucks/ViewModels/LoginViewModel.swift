@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+@Observable
+class LoginViewModel {
+    var loginModel: LoginModel = LoginModel(id: "", pw: "")
+    
+    func login() {
+        print("ID: \(loginModel.id), PW: \(loginModel.pw)")
+    }
+}
