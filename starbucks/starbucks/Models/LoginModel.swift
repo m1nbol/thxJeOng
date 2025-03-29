@@ -5,14 +5,9 @@
 //  Created by BoMin LEE on 3/20/25.
 //
 
-import Foundation
+import SwiftUI
 
-class LoginModel: ObservableObject {
-    @Published var id: String = ""
-    @Published var pw: String = ""
-    
-    init(id: String = "", pw: String = "") {
-        self.id = id
-        self.pw = pw
-    }
+struct LoginModel {
+    var id: String
+    var pw: String
 }
