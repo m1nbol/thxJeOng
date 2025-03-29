@@ -11,10 +11,10 @@ struct LoginView: View {
     var body: some View {
         VStack{
             // Title 영역
-            titleView()
+            titleView
             Spacer()
             // 아이디 및 비밀번호 입력 영역
-            inputFieldsView()
+            inputFieldsView
             Spacer()
             // 로그인 및 회원가입 영역
             loginButtonsView
@@ -25,7 +25,7 @@ struct LoginView: View {
 }
 
 // MARK: - Title 영역
-private func titleView() -> some View {
+private var titleView: some View {
     VStack(alignment: .leading) { // 여기서 leading 주면 vstack 내부 요소의 위치 결정
         Image("starbucksLogo")
             .resizable()
@@ -34,23 +34,29 @@ private func titleView() -> some View {
         
         Spacer().frame(height: 28)
         
-        Text("안녕하세요.\n스타벅스입니다.")
-            .font(.mainTextExtraBold24)
+//        Text("안녕하세요.\n스타벅스입니다.")
+//            .font(.mainTextExtraBold24)
+        
+        Group { // Group으로 하는 게 뭔가 더 편리할 거 같음
+            Text("안녕하세요.")
+            Text("스타벅스입니다.")
+        }
+        .font(.mainTextExtraBold24)
+        .kerning(1.2)
             
         Spacer().frame(height: 19)
         
         Text("회원 서비스 이용을 위해 로그인 해주세요")
             .font(.mainTextMedium16)
             .foregroundColor(.secondary)
-            .kerning(-0.05)
+            .kerning(-0.8)
     }
     .frame(maxWidth: .infinity, alignment: .leading) // 여기서 leading 주면 frame 내에서 vstack 자체의 위치 결정
-    .border(.red)
     // allignment leading을 어디서 주느냐에 따라 구조가 달라짐
 }
 
 // MARK: - 아이디 및 비밀번호 입력 영역
-private func inputFieldsView() -> some View {
+private var inputFieldsView: some View {
     VStack(spacing: 47) {
         VStack(alignment: .leading) {
             TextField("아이디", text: .constant(""))
