@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class LoginModel: ObservableObject {
+    @Published var id: String = ""
+    @Published var pw: String = ""
+    
+    init(id: String = "", pw: String = "") {
+        self.id = id
+        self.pw = pw
+    }
+}
