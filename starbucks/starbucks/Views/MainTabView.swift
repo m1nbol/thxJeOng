@@ -7,25 +7,54 @@
 
 import SwiftUI
 
+enum TabSelection {
+    case home
+    case pay
+    case order
+    case shop
+    case other
+}
+
 struct MainTabView: View {
-    @State private var selection = 0
+    @State private var selection: TabSelection = .home
     
     var body: some View {
         TabView(selection: $selection) {
-            Tab("Others", systemImage: "person", value: 0) {
-                OthersView()
+            Tab("Home", image: self.selection == .home ? "homeSelected" : "home", value: .home) {
+                HomeView()
+            }
+            
+            Tab("Home", image: self.selection == .pay ? "paySelected" : "pay", value: .pay) {
+                HomeView()
+            }
+            
+            Tab("Order", image: self.selection == .order ? "orderSelected" : "order", value: .order) {
+                HomeView()
+            }
+            
+            Tab("Shop", image: self.selection == .shop ? "shopSelected" : "shop", value: .shop) {
+                HomeView()
+            }
+            
+            Tab("Other", image: self.selection == .other ? "otherSelected" : "other", value: .other) {
+                OtherView()
             }
         }
+        .tint(.green02)
     }
 }
 
-struct MainTabView_Preview: PreviewProvider {
-    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
-    static var previews: some View {
-        ForEach(devices, id: \.self) { device in
-            MainTabView()
-                .previewDevice(PreviewDevice(rawValue: device))
-                .previewDisplayName(device)
-        }
-    }
+#Preview {
+    MainTabView()
 }
+
+//struct MainTabView_Preview: PreviewProvider {
+//    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
+//    static var previews: some View {
+//        ForEach(devices, id: \.self) { device in
+//            MainTabView()
+//                .previewDevice(PreviewDevice(rawValue: device))
+//                .previewDisplayName(device)
+//        }
+//    }
+//}
