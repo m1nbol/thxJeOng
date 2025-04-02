@@ -24,16 +24,16 @@ struct MainTabView: View {
                 HomeView()
             }
             
-            Tab("Home", image: self.selection == .pay ? "paySelected" : "pay", value: .pay) {
-                HomeView()
+            Tab("Pay", image: self.selection == .pay ? "paySelected" : "pay", value: .pay) {
+                PayView()
             }
             
             Tab("Order", image: self.selection == .order ? "orderSelected" : "order", value: .order) {
-                HomeView()
+                OrderView()
             }
             
             Tab("Shop", image: self.selection == .shop ? "shopSelected" : "shop", value: .shop) {
-                HomeView()
+                SignUpView(viewModel: SignUpViewModel())
             }
             
             Tab("Other", image: self.selection == .other ? "otherSelected" : "other", value: .other) {
