@@ -26,6 +26,7 @@ struct OtherView: View {
             .padding(.horizontal, 23.5)
             .padding(.bottom, 16)
             .background(.white)
+//            .border(.blue)
             VStack {
                 VStack(spacing: 24) {
                     VStack {
@@ -91,8 +92,11 @@ struct OtherView: View {
                 .padding(.horizontal, 10)
             }
             .frame(maxWidth: .infinity)
+//            .border(.yellow)
         }
+        .padding(.bottom, 41)
         .background(.white01)
+//        .border(.red)
     }
     
     struct OtherButtonView: View {
