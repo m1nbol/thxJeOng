@@ -12,6 +12,21 @@ struct OtherView: View {
     
     var body: some View {
         VStack(spacing: 41) {
+            LabeledContent { // 밑에 주석처리된 거 그냥 이렇게도 가능
+                Button {
+                    print("로그아웃")
+                } label: {
+                    Image(.logOut)
+                }
+            } label: {
+                Text("Other")
+                    .font(.mainTextBold24)
+            }
+            .padding(.horizontal, 23.5)
+            .padding(.bottom, 16)
+            .background(.white)
+            
+            /*
             HStack {
                 Text("Other")
                     .font(.mainTextBold24)
@@ -26,7 +41,8 @@ struct OtherView: View {
             .padding(.horizontal, 23.5)
             .padding(.bottom, 16)
             .background(.white)
-//            .border(.blue)
+            */
+
             VStack {
                 VStack(spacing: 24) {
                     VStack {
@@ -66,7 +82,7 @@ struct OtherView: View {
                         .foregroundStyle(.black.opacity(0.12))
                         .frame(width: 327)
                 }
-                .padding(.horizontal, 10)
+//                .padding(.horizontal, 10)
                 Spacer()
                 VStack(alignment: .leading) {
                     Text("고객지원")
@@ -89,9 +105,10 @@ struct OtherView: View {
                     }
                     .padding(.top, 16)
                 }
-                .padding(.horizontal, 10)
+//                .padding(.horizontal, 10)
             }
             .frame(maxWidth: .infinity)
+            .padding(.horizontal, 11)
 //            .border(.yellow)
         }
         .padding(.bottom, 41)
