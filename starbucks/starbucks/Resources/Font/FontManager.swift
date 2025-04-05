@@ -71,8 +71,20 @@ extension Font {
         return .pretend(type: .semibold, size: 13)
     }
     
+    static var makeMedium20: Font {
+        return .pretend(type: .medium, size: 20)
+    }
+    
+    static var makeMedium18: Font {
+        return .pretend(type: .medium, size: 18)
+    }
+    
     static var mainTextMedium16: Font {
         return .pretend(type: .medium, size: 16)
+    }
+    
+    static var mainTextRegular24: Font {
+        return .pretend(type: .regular, size: 24)
     }
     
     static var mainTextRegular18: Font {
@@ -91,15 +103,19 @@ extension Font {
         return .pretend(type: .regular, size: 9)
     }
     
+    static var mainTextLight24: Font {
+        return .pretend(type: .light, size: 24)
+    }
+    
+    static var mainTextLight20: Font {
+        return .pretend(type: .light, size: 20)
+    }
+    
     static var mainTextLight14: Font {
         return .pretend(type: .light, size: 14)
     }
     
     static var mainTextExtraBold24: Font {
         return .pretend(type: .extraBold, size: 24)
-    }
-
-    static var makeMedium18: Font {
-        return .pretend(type: .medium, size: 18)
     }
 }
