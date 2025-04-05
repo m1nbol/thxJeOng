@@ -8,26 +8,28 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Bindable var viewModel: LoginViewModel
+    @Bindable var viewModel = LoginViewModel()
     @FocusState private var focusedField: LoginInputFieldFocus?
     @State private var isAdPresented = false
     
     var body: some View {
-        VStack{
-            // Title 영역
-            titleView
-            Spacer()
-            // 아이디 및 비밀번호 입력 영역
-            inputFieldsView
-            Spacer()
-            // 로그인 및 회원가입 영역
-            loginButtonsView
+        NavigationStack {
+            VStack{
+                // Title 영역
+                titleView
+                Spacer()
+                // 아이디 및 비밀번호 입력 영역
+                inputFieldsView
+                Spacer()
+                // 로그인 및 회원가입 영역
+                loginButtonsView
+            }
+            .sheet(isPresented: $isAdPresented) {
+                AdvertisementView()
+            }
+            .padding(.top, 104)
+            .padding(.horizontal, 19)
         }
-        .sheet(isPresented: $isAdPresented) {
-            AdvertisementView()
-        }
-        .padding(.top, 104)
-        .padding(.horizontal, 19)
     }
     
     // MARK: - Title 영역
@@ -113,10 +115,22 @@ struct LoginView: View {
     private var loginButtonsView : some View {
         VStack(spacing: 16) {
             // 이메일로 회원가입
-            Text("이메일로 회원가입하기")
-                .font(.mainTextRegular12)
-                .foregroundColor(.gray04)
-                .underline()
+//            Button {
+//                print("회원가입으로 이동")
+//                
+//            } label: {
+//                Text("이메일로 회원가입하기")
+//                    .font(.mainTextRegular12)
+//                    .foregroundColor(.gray04)
+//                    .underline()
+//            }
+            NavigationLink(destination: SignUpView()) {
+                Text("이메일로 회원가입하기")
+                    .font(.mainTextRegular12)
+                    .foregroundColor(.gray04)
+                    .underline()
+            }
+
             
             // 카카오 로그인
             ZStack {
@@ -170,13 +184,17 @@ enum LoginInputFieldFocus {
     case id, pw
 }
 
-struct LoginView_Preview: PreviewProvider {
-    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
-    static var previews: some View {
-        ForEach(devices, id: \.self) { device in
-            LoginView(viewModel: LoginViewModel())
-                .previewDevice(PreviewDevice(rawValue: device))
-                .previewDisplayName(device)
-        }
-    }
+//struct LoginView_Preview: PreviewProvider {
+//    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
+//    static var previews: some View {
+//        ForEach(devices, id: \.self) { device in
+//            LoginView(viewModel: LoginViewModel())
+//                .previewDevice(PreviewDevice(rawValue: device))
+//                .previewDisplayName(device)
+//        }
+//    }
+//}
+
+#Preview {
+    LoginView()
 }
