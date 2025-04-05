@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @Bindable var viewModel: LoginViewModel
-    @FocusState private var focusedField: InputFieldFocus?
+    @FocusState private var focusedField: LoginInputFieldFocus?
     @State private var isAdPresented = false
     
     var body: some View {
@@ -166,7 +166,7 @@ struct LoginView: View {
     }
 }
 
-enum InputFieldFocus {
+enum LoginInputFieldFocus {
     case id, pw
 }
 
