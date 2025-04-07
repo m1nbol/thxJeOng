@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct MenuModel: Identifiable {
-    var id: UUID
+    var id: Int
     var name: String
     var image: Image
     
-    init(id: UUID = UUID(), name: String, image: Image) {
+    init(id: Int, name: String, image: Image) {
         self.id = id
         self.name = name
         self.image = image
