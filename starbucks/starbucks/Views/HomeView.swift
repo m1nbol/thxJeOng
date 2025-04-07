@@ -14,26 +14,31 @@ struct HomeView: View {
     @StateObject private var adViewModel = AdvertisementViewModel()
     @StateObject private var dessertViewModel = DessertViewModel()
     
+    @State private var selectedMenuId: Int = 0
+    @State private var showDetail = false
+    
     var body: some View {
-        ScrollView {
-            topBanner
-                .frame(height: 260)
-            
-            VStack(spacing: 15) {
-                adBanner
-                recommendedMenu
-                eventBanner
-                serviceSubscribeBanner
-                newsBanner
-                secondAdBanner
-                dessertMenu
-                bottomEventBanner
+        NavigationStack {
+            ScrollView {
+                topBanner
+                    .frame(height: 260)
+                
+                VStack(spacing: 15) {
+                    adBanner
+                    recommendedMenu
+                    eventBanner
+                    serviceSubscribeBanner
+                    newsBanner
+                    secondAdBanner
+                    dessertMenu
+                    bottomEventBanner
+                }
+                .padding(.horizontal, 10)
+                
+                
             }
-            .padding(.horizontal, 10)
-            
-            
+            .ignoresSafeArea(edges: .top)
         }
-        .ignoresSafeArea(edges: .top)
     }
     
     private var topBanner: some View {
@@ -120,7 +125,7 @@ struct HomeView: View {
     private var recommendedMenu: some View {
         VStack {
             HStack {
-                Text("\(username ?? "(설정한 닉네임)")")
+                Text(homeViewModel.displayName)
                     .foregroundStyle(.brown01)
                 +
                 Text("님을 위한 추천 메뉴")
@@ -130,13 +135,23 @@ struct HomeView: View {
             .padding(.leading, 10)
             
             ZStack {
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
                         ForEach(coffeViewModel.coffeeList) { coffee in
+                            
                             CircleImageCard(menu: coffee)
+                                .onTapGesture {                                    selectedMenuId = coffee.id
+                                    showDetail = true
+                                }
                         }
                     }
+                    .navigationDestination(isPresented: $showDetail) {
+                        CoffeeDetailView(id: selectedMenuId)
+                    }
                 }
+                
+                
                 
                 // 자연스럽게 보이기 위해 그라데이션 추가
                 HStack {
