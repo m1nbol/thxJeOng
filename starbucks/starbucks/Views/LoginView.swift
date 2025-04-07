@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Bindable var viewModel = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel()
     @FocusState private var focusedField: LoginInputFieldFocus?
-    @State private var isAdPresented = false
     
     var body: some View {
         NavigationStack {
@@ -24,11 +23,11 @@ struct LoginView: View {
                 // 로그인 및 회원가입 영역
                 loginButtonsView
             }
-            .sheet(isPresented: $isAdPresented) {
-                AdvertisementView()
-            }
             .padding(.top, 104)
             .padding(.horizontal, 19)
+        }
+        .fullScreenCover(isPresented: $viewModel.isLoginSuccess) {
+            MainTabView()
         }
     }
     
@@ -74,6 +73,7 @@ struct LoginView: View {
                     .font(.mainTextRegular13)
                     .textFieldStyle(PlainTextFieldStyle())
                     .focused($focusedField, equals: .id)
+                    .keyboardType(.emailAddress)
                 Divider()
                     .background(focusedField == .id ? Color.green01 : Color.gray00)
             }
@@ -93,8 +93,7 @@ struct LoginView: View {
             .frame(height: 20)
             
             Button {
-                print("로그인하기 누름")
-                // isAdPresented = true
+                viewModel.login()
             } label: {
                 ZStack {
                     Rectangle()
@@ -106,6 +105,12 @@ struct LoginView: View {
                         .font(.mainTextMedium16)
                         .foregroundColor(Color.white01)
                 }
+            }
+            
+            if let error = viewModel.loginErrorMessage {
+                Text(error)
+                    .foregroundStyle(.red01)
+                    .font(.mainTextMedium16)
             }
 
         }
