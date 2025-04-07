@@ -33,7 +33,7 @@ struct MainTabView: View {
             }
             
             Tab("Shop", image: self.selection == .shop ? "shopSelected" : "shop", value: .shop) {
-                SignUpView(viewModel: SignUpViewModel())
+                ShopView()
             }
             
             Tab("Other", image: self.selection == .other ? "otherSelected" : "other", value: .other) {
