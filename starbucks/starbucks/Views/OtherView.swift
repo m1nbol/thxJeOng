@@ -10,10 +10,13 @@ import SwiftUI
 struct OtherView: View {
     @StateObject private var viewModel = OtherViewModel()
     
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    
     var body: some View {
         VStack(spacing: 41) {
             LabeledContent { // 밑에 주석처리된 거 그냥 이렇게도 가능
                 Button {
+                    isLoggedIn = false
                     print("로그아웃")
                 } label: {
                     Image(.logOut)
