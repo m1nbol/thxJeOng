@@ -74,6 +74,7 @@ struct SignUpView: View {
                 .font(.mainTextRegular18)
                 .textFieldStyle(PlainTextFieldStyle())
                 .focused($focusedField, equals: .email)
+                .keyboardType(.emailAddress)
                 Divider()
                     .background(focusedField == .email ? Color.green01 : Color.gray00)
             }
