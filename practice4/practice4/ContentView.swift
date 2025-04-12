@@ -10,11 +10,11 @@ import PhotosUI
 
 struct ContentView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
-    @State private var images: [UIImage] = []
-
     @State private var showCamera = false
     @State private var showActionSheet = false
     @State private var showPhotosPicker = false
+
+    private var viewModel: OCRViewModel = .init()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -24,7 +24,7 @@ struct ContentView: View {
 
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(images, id: \.self) { image in
+                    ForEach(viewModel.getImages(), id: \.self) { image in
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
@@ -33,8 +33,23 @@ struct ContentView: View {
                     }
                 }
             }
+
+            if !viewModel.recognizedText.isEmpty {
+                Divider()
+                Text("📝 OCR 결과")
+                    .font(.headline)
+                ScrollView {
+                    Text(viewModel.recognizedText)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(.secondarySystemBackground))
+                }
+                .frame(height: 200)
+            } else {
+                Text("추출 결과 값 없음")
+            }
         }
-        .padding()
+        
         .confirmationDialog("사진을 어떻게 추가할까요?", isPresented: $showActionSheet, titleVisibility: .visible) {
             Button("앨범에서 가져오기") {
                 showPhotosPicker = true
@@ -48,16 +63,16 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showCamera) {
             CameraPicker { image in
-                images.append(image)
+                viewModel.addImage(image)
             }
         }
         .photosPicker(isPresented: $showPhotosPicker, selection: $selectedItems, maxSelectionCount: 5, matching: .images)
-        .onChange(of: selectedItems) { oldItems,newItems in
+        .onChange(of: selectedItems) { oldItems, newItems in
             for item in newItems {
                 Task {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
-                        images.append(image)
+                        viewModel.addImage(image)
                     }
                 }
             }
