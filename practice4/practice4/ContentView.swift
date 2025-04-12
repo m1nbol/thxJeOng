@@ -10,15 +10,21 @@ import PhotosUI
 
 struct ContentView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
-    @State private var selectedImages: [UIImage] = []
+    @State private var images: [UIImage] = []
+
+    @State private var showCamera = false
+    @State private var showActionSheet = false
+    @State private var showPhotosPicker = false
 
     var body: some View {
         VStack(spacing: 20) {
-            PhotosPicker("📁 사진 선택하기", selection: $selectedItems, maxSelectionCount: 5, matching: .images)
+            Button("📷 사진 추가하기") {
+                showActionSheet = true
+            }
 
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(selectedImages, id: \.self) { image in
+                    ForEach(images, id: \.self) { image in
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
@@ -29,19 +35,36 @@ struct ContentView: View {
             }
         }
         .padding()
-        .onChange(of: selectedItems) { oldItems, newItems in
-            selectedImages.removeAll()
+        .confirmationDialog("사진을 어떻게 추가할까요?", isPresented: $showActionSheet, titleVisibility: .visible) {
+            Button("앨범에서 가져오기") {
+                showPhotosPicker = true
+            }
+
+            Button("카메라로 촬영하기") {
+                showCamera = true
+            }
+
+            Button("취소", role: .cancel) {}
+        }
+        .sheet(isPresented: $showCamera) {
+            CameraPicker { image in
+                images.append(image)
+            }
+        }
+        .photosPicker(isPresented: $showPhotosPicker, selection: $selectedItems, maxSelectionCount: 5, matching: .images)
+        .onChange(of: selectedItems) { oldItems,newItems in
             for item in newItems {
                 Task {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
-                        selectedImages.append(image)
+                        images.append(image)
                     }
                 }
             }
         }
     }
 }
+
 
 #Preview {
     ContentView()
