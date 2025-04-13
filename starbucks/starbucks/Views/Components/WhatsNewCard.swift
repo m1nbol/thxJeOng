@@ -22,10 +22,10 @@ struct WhatsNewCard: View {
                 .frame(maxWidth: 240, alignment: .leading)
                 .lineLimit(1)
                 .foregroundStyle(.black02)
-            Text(ad.content)
+            Text(ad.content.forceCharWrapping)
                 .font(.mainTextSemiBold13)
                 .frame(maxWidth: 240, alignment: .leading)
-                .lineLimit(2)
+                .lineLimit(3, reservesSpace: true)
                 .foregroundStyle(.gray03)
         }
 //        .border(.mint, width: 2.0)
