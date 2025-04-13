@@ -39,6 +39,10 @@ extension Font {
         return .custom(type.value, size: size)
     }
     
+    static var mainTextBold15: Font {
+        return .pretend(type: .bold, size: 15)
+    }
+    
     static var mainTextBold20: Font {
         return .pretend(type: .bold, size: 20)
     }
