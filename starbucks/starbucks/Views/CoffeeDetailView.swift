@@ -10,76 +10,112 @@ import SwiftUI
 struct CoffeeDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = MenuDetailViewModel()
+    @State private var selectedTemp: Temperature = .hot
     
     var id: Int = 0
-//    let coffee: MenuDetailModel
     
     var body: some View {
-        VStack(spacing: 200) {
-            VStack(spacing: 10){
-                topImage
-                coffeeInformation
-                    .padding(.horizontal, 10)
+        ZStack(alignment: .top) {
+            VStack(spacing: 20) {
+                viewModel.menu(withId: id, selectedTemp: selectedTemp).image
+                    .resizable()
+                    .scaledToFit()
+                VStack {
+                    coffeeInformation
+                        .padding(.horizontal, 10)
+                    temperatureToggleButton
+                }
+                .frame(height: 256)
+                Spacer()
+                bottomButtonSection
             }
-            bottomButtonSection
-                .safeAreaPadding(.bottom, 14)
+            .ignoresSafeArea(edges: .top)
+            
+            topButtons
+                .padding(.horizontal, 8)
+            
         }
         .navigationBarBackButtonHidden()
-        .toolbar(.hidden, for: .tabBar)
+        .toolbar(.hidden, for: .tabBar) // 이거 해야 탭바 안 보임
+        .onAppear {
+            selectedTemp = viewModel.menu(withId: id, selectedTemp: selectedTemp).temperature
+        }
     }
     
-    private var topImage: some View {
-        ZStack(alignment: .top) {
-            viewModel.menu(withId: id).image
-                .resizable()
-                .scaledToFill()
-            HStack {
-                Button {
-//                    print("뒤로가기")
-                    dismiss()
-                } label: {
-                    Image(.chevronBack)
-                }
-                Spacer()
-                Button {
-                    print("공유하기")
-                } label: {
-                    Image(.share)
-                }
+    private var topButtons: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Image(.chevronBack)
             }
-            .padding(.horizontal, 8)
-            .safeAreaPadding(.top, 60)
+            Spacer()
+            Button {
+                print("공유하기")
+            } label: {
+                Image(.share)
+            }
         }
-        .ignoresSafeArea()
     }
     
     private var coffeeInformation: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(viewModel.menu(withId: id).name)
+                    Text(viewModel.menu(withId: id, selectedTemp: selectedTemp).name)
                         .font(.mainTextSemiBold24)
                         .foregroundStyle(.black03)
                     Image(.new)
                     Spacer()
                 }
-                Text(viewModel.menu(withId: id).nameEnglish)
+                Text(viewModel.menu(withId: id, selectedTemp: selectedTemp).nameEnglish)
                     .font(.mainTextSemiBold14)
                     .foregroundStyle(.gray01)
             }
             Spacer()
             VStack(alignment: .leading, spacing: 20) {
-                Text(viewModel.menu(withId: id).description)
+                Text(viewModel.menu(withId: id, selectedTemp: selectedTemp).description.forceCharWrapping)
                     .font(.mainTextLight14)
                     .foregroundStyle(.gray06)
                     .kerning(-0.3)
                     .lineLimit(3, reservesSpace: true)
                     .multilineTextAlignment(.leading)
-                Text("\(viewModel.menu(withId: id).price.withComma)원")
+                Text("\(viewModel.menu(withId: id, selectedTemp: selectedTemp).price.withComma)원")
                     .font(.mainTextRegular24)
                     .foregroundStyle(.black03)
             }
             Spacer()
+        }
+    }
+    
+    private var temperatureToggleButton: some View {
+        VStack {
+            if viewModel.menu(withId: id, selectedTemp: selectedTemp).availableTemperatures.count == 2 {
+                TemperatureToggleView(selection: $selectedTemp)
+            } else {
+                onlyTemperatureView
+            }
+            
+        }
+    }
+    
+    private var onlyTemperatureView: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 18)
+                .fill(.clear)
+                .stroke(.gray02)
+                .frame(height: 36)
+                .padding(.horizontal, 10)
+            let temperature = viewModel.menu(withId: id, selectedTemp: selectedTemp).temperature.rawValue
+            if temperature == "HOT" {
+                Text("\(temperature) ONLY")
+                    .foregroundStyle(.red01)
+                    .font(.mainTextBold15)
+            } else if temperature == "ICED" {
+                Text("\(temperature) ONLY")
+                    .foregroundStyle(.blue01)
+                    .font(.mainTextBold15)
+            }
         }
     }
     
@@ -112,9 +148,9 @@ struct CoffeeDetailView: View {
 }
 
 
-//#Preview {
-//    CoffeeDetailView(coffee: MenuDetailModel(id: 1, name: "에스프레소 콘파냐", nameEnglish: "Espresso Con Panna", description: "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료로서, 뜨거운 커피의 맛과 차갑고 달콤한 생크림의 맛을 같이 즐길 수 있는 커피 음료", price: 4100, temperature: .onlyHot, image: Image(.conpanna)))
-//}
+#Preview {
+    CoffeeDetailView(id: 4)
+}
 
 //struct CoffeDetailView_Preview: PreviewProvider {
 //    static var devices = ["iPhone 11", "iPhone 16 Pro Max"]
