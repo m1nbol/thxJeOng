@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ShopView: View {
+    @StateObject private var viewModel = ShopViewModel()
+    
     var body: some View {
         VStack {
             Text("this is shop view")
@@ -20,6 +22,17 @@ struct ShopView: View {
                 .frame(width: 100, height: 100)
         }
         
+    }
+    
+    private var topBanner: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 28) {
+                ForEach(viewModel.bannerImageList) { bannerImage in
+                    bannerImage.image
+                        .resizable()
+                }
+            }
+        }
     }
 }
 
