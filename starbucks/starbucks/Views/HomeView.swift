@@ -141,7 +141,7 @@ struct HomeView: View {
                         ForEach(coffeViewModel.coffeeList) { coffee in
                             
                             CircleImageCard(menu: coffee)
-                                .onTapGesture {                                    selectedMenuId = coffee.id
+                                .onTapGesture { selectedMenuId = coffee.id
                                     showDetail = true
                                 }
                         }
