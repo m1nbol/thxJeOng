@@ -140,10 +140,11 @@ struct HomeView: View {
                     LazyHStack(spacing: 16) {
                         ForEach(coffeViewModel.coffeeList) { coffee in
                             
-                            CircleImageCard(menu: coffee)
+                            CircleImageCard(menu: coffee, fontSize: 14)
                                 .onTapGesture { selectedMenuId = coffee.id
                                     showDetail = true
                                 }
+                                .frame(width: 130)
                         }
                     }
                     .navigationDestination(isPresented: $showDetail) {
@@ -249,7 +250,8 @@ struct HomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
                         ForEach(dessertViewModel.dessertList) { dessert in
-                            CircleImageCard(menu: dessert)
+                            CircleImageCard(menu: dessert, fontSize: 14)
+                                .frame(width: 130)
                         }
                     }
                 }
