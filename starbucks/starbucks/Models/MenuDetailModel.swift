@@ -15,22 +15,17 @@ struct MenuDetailModel: Identifiable {
     var description: String
     var price: Int
     var temperature: Temperature
+    let availableTemperatures: [Temperature]
     var image: Image
     
-    init(id: Int, name: String, nameEnglish: String, description: String, price: Int, temperature: Temperature, image: Image) {
+    init(id: Int, name: String, nameEnglish: String, description: String, price: Int, temperature: Temperature, availableTemperatures: [Temperature], image: Image) {
         self.id = id
         self.name = name
         self.nameEnglish = nameEnglish
         self.description = description
         self.price = price
         self.temperature = temperature
+        self.availableTemperatures = availableTemperatures
         self.image = image
     }
-}
-
-enum Temperature: String, CaseIterable {
-    case hot
-    case iced
-    case onlyHot
-    case onlyIced
 }
