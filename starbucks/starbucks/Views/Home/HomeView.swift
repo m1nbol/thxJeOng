@@ -11,11 +11,11 @@ struct HomeView: View {
     @AppStorage("username") var username: String?
     @StateObject private var homeViewModel = HomeViewModel()
     @StateObject private var coffeViewModel = CoffeeViewModel()
-    @StateObject private var adViewModel = AdvertisementViewModel()
     @StateObject private var dessertViewModel = DessertViewModel()
     
     @State private var selectedMenuId: Int = 0
     @State private var showDetail = false
+    @State private var showAdvertisement = true
     
     var body: some View {
         NavigationStack {
@@ -38,6 +38,9 @@ struct HomeView: View {
                 
             }
             .ignoresSafeArea(edges: .top)
+        }
+        .fullScreenCover(isPresented: $showAdvertisement) {
+            AdvertisementView(showAdvertisement: $showAdvertisement)
         }
     }
     
@@ -199,7 +202,7 @@ struct HomeView: View {
             ZStack {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 14) {
-                        ForEach(adViewModel.advertisementList) { ad in
+                        ForEach(homeViewModel.advertisementList) { ad in
                             WhatsNewCard(ad: ad)
                         }
                     }
