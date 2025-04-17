@@ -40,7 +40,7 @@ struct HomeView: View {
             .ignoresSafeArea(edges: .top)
         }
         .fullScreenCover(isPresented: $showAdvertisement) {
-            AdvertisementView(showAdvertisement: $showAdvertisement)
+            AdvertisementView()
         }
     }
     

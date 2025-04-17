@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AdvertisementView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var showAdvertisement: Bool
+//    @Binding var showAdvertisement: Bool
     
     var body: some View {
         VStack() {
@@ -33,7 +33,7 @@ struct AdvertisementView: View {
                 HStack {
                     Spacer()
                     Button {
-                        showAdvertisement = false
+//                        showAdvertisement = false
                         dismiss()
                     } label: {
                         Text("X 닫기")
@@ -49,9 +49,4 @@ struct AdvertisementView: View {
 //        .safeAreaPadding(.top, 0)
         .ignoresSafeArea()
     }
-}
-
-#Preview {
-    @Previewable @State var showAdvertisement = true
-    AdvertisementView(showAdvertisement: $showAdvertisement)
 }
