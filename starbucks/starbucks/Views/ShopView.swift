@@ -60,7 +60,7 @@ struct ShopView: View {
             Text("Best Items")
                 .font(.mainTextSemiBold22)
             ScrollView(.horizontal, showsIndicators: false){ // MARK: JeOng: Section 써라.
-                HStack(alignment: .center) {
+                LazyHStack(alignment: .center) {
                     let columns = Array(repeating: GridItem(.flexible()), count: 2)
                     LazyVGrid(columns: columns, spacing: 65) {
                         ForEach(viewModel.bestItemsList[0...3]) { best in
