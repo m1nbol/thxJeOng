@@ -28,8 +28,9 @@ class ReceiptViewModel {
         receipts
     }
 
-    func startOCR(from photo: PhotoModel, completion: @escaping (ReceiptModel?) -> Void) {
-        guard let uiImage = UIImage(data: photo.imageData),
+//    func startOCR(from photo: PhotoModel, completion: @escaping (ReceiptModel?) -> Void) {
+    func startOCR(from imageData: Data, completion: @escaping (ReceiptModel?) -> Void) {
+        guard let uiImage = UIImage(data: imageData),
               let cgImage = uiImage.cgImage else {
             completion(nil)
             return
@@ -48,6 +49,7 @@ class ReceiptViewModel {
             let parsed = self.parseWithoutRegex(from: fullText)
 
             DispatchQueue.main.async {
+                parsed.imageData = imageData
                 self.currentReceipt = parsed
                 completion(parsed)
             }

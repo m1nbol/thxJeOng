@@ -41,7 +41,7 @@ struct ReceiptListCell: View {
     //                }
                 }
                 .font(.mainTextSemiBold18)
-                .padding(.bottom, 14)
+                .padding(.vertical, 14)
                 Spacer()
                 Button {
                     print("영수증 이미지 보기")

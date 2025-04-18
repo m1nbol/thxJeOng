@@ -67,31 +67,37 @@ struct EReceiptView: View {
                 Button("취소", role: .cancel) {}
             }
             .photosPicker(isPresented: $showPhotoPicker, selection: $selectedItems, maxSelectionCount: 1, matching: .images)
-            .onChange(of: selectedItems) { oldItems, newItems in
+            .onChange(of: selectedItems) { _, newItems in
                 for item in newItems {
                     Task {
                         if let data = try? await item.loadTransferable(type: Data.self) {
-                            let photo = PhotoModel(imageData: data)
-                            receiptViewModel.startOCR(from: photo) { parsedReceipt in
+//                           let photo = receiptViewModel.currentReceipt?.imageData {
+//                            receiptViewModel.startOCR(from: photo) { parsedReceipt in
+//                                guard let receipt = parsedReceipt else {
+//                                    print("❗️현재 영수증 불러오기 실패")
+//                                    return
+//                                }
+//                                
+//                                receipt.imageData = data
+//                                receiptViewModel.addReceipt(receipt)
+//                                modelContext.insert(receipt)
+//                                try? modelContext.save()
+//                                print("📸 이미지 추가 및 저장 완료")
+//                            }
+                            receiptViewModel.startOCR(from: data, completion: { parsedReceipt in
                                 guard let receipt = parsedReceipt else {
-                                    print("❗️현재 영수증 불러오기 실패")
+                                    print("❗️OCR 실패")
                                     return
                                 }
-                                
                                 receipt.imageData = data
                                 receiptViewModel.addReceipt(receipt)
                                 modelContext.insert(receipt)
                                 try? modelContext.save()
-                                print("📸 이미지 추가 및 저장 완료")
-                            }
-//                            if let currentReceipt = receiptViewModel.currentReceipt {
-//                                receiptViewModel.addReceipt(currentReceipt)
-//                                modelContext.insert(currentReceipt)
-//                                try? modelContext.save()
-//                                print("📸 이미지 추가 및 저장 완료")
-//                            } else {
-//                                print("❗️현재 영수증 불러오기 실패")
-//                            }
+                                print("✅ OCR 및 이미지 저장 완료")
+                            })
+                        }
+                        else {
+                            print("❌ 아이템 로드 실패")
                         }
                     }
                 }
@@ -136,8 +142,7 @@ struct EReceiptView: View {
 //            }
             
             List {
-                ForEach(receiptViewModel.receipts) {
-                    receipt in
+                ForEach(receiptViewModel.receipts) { receipt in
                     ReceiptListCell(receipt: receipt) {
                         print("셀 클로저 함수")
                         selectedReceipt = receipt

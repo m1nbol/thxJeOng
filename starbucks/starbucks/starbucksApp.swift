@@ -19,6 +19,6 @@ struct starbucksApp: App {
                 LoginView()
             }
         }
-        .modelContainer(for: PhotoModel.self)
+        .modelContainer(for: ReceiptModel.self)
     }
 }
