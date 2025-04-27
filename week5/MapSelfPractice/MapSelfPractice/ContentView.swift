@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    private var locationManager = LocationManager()
+    
     var body: some View {
+//        Map(initialPosition: .region(locationManager.region))
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Hello")
         }
-        .padding()
     }
 }
 

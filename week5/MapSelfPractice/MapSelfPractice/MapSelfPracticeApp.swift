@@ -11,7 +11,7 @@ import SwiftUI
 struct MapSelfPracticeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchMapView()
         }
     }
 }
