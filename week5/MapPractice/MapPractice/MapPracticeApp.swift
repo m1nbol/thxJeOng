@@ -11,7 +11,7 @@ import SwiftUI
 struct MapPracticeApp: App {
     var body: some Scene {
         WindowGroup {
-            HybridMapContainerView()
+            MapView()
         }
     }
 }
