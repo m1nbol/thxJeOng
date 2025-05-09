@@ -13,6 +13,7 @@ struct OtherView: View {
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
     @State private var showEReceipt = false
+    @State private var showStoreInfo = false
     
     
     var body: some View {
@@ -86,15 +87,23 @@ struct OtherView: View {
                         Text("Pay")
                             .font(.mainTextSemiBold18)
                         HStack {
-                            OtherSmallButtonView(buttonText: "스타벅스 카드 등록", buttonImage: Image(.starbucksCard))
+                            OtherSmallButtonView(buttonText: "스타벅스 카드 등록", buttonImage: Image(.starbucksCard), action: {
+                                
+                            })
                             Spacer()
-                            OtherSmallButtonView(buttonText: "카드 교환권 등록", buttonImage: Image(.cardChange))
+                            OtherSmallButtonView(buttonText: "카드 교환권 등록", buttonImage: Image(.cardChange), action: {
+                                
+                            })
                         }
                         .padding(.vertical, 16)
                         HStack {
-                            OtherSmallButtonView(buttonText: "쿠폰 등록", buttonImage: Image(.coupon))
+                            OtherSmallButtonView(buttonText: "쿠폰 등록", buttonImage: Image(.coupon), action: {
+                                
+                            })
                             Spacer()
-                            OtherSmallButtonView(buttonText: "쿠폰 히스토리", buttonImage: Image(.couponHistory))
+                            OtherSmallButtonView(buttonText: "쿠폰 히스토리", buttonImage: Image(.couponHistory), action: {
+                                
+                            })
                         }
                         .padding(.vertical, 16)
                         Divider()
@@ -107,19 +116,32 @@ struct OtherView: View {
                         Text("고객지원")
                             .font(.mainTextSemiBold18)
                         HStack {
-                            OtherSmallButtonView(buttonText: "스토어 케어", buttonImage: Image(.storeCare))
+                            OtherSmallButtonView(buttonText: "스토어 케어", buttonImage: Image(.storeCare), action: {
+                                
+                            })
                             Spacer()
-                            OtherSmallButtonView(buttonText: "고객의 소리", buttonImage: Image(.customer))
+                            OtherSmallButtonView(buttonText: "고객의 소리", buttonImage: Image(.customer), action: {
+                                
+                            })
                         }
                         .padding(.vertical, 16)
                         HStack {
-                            OtherSmallButtonView(buttonText: "매장 정보", buttonImage: Image(.storeInfo))
+                            OtherSmallButtonView(buttonText: "매장 정보", buttonImage: Image(.storeInfo), action: {
+                                showStoreInfo = true
+                            })
                             Spacer()
-                            OtherSmallButtonView(buttonText: "반납기 정보", buttonImage: Image(.returnInfo))
+                            OtherSmallButtonView(buttonText: "반납기 정보", buttonImage: Image(.returnInfo), action: {
+                                
+                            })
                         }
                         .padding(.vertical, 16)
+                        .navigationDestination(isPresented: $showStoreInfo) {
+                            StoreInformationView()
+                        }
                         HStack {
-                            OtherSmallButtonView(buttonText: "마이 스타벅스 리뷰", buttonImage: Image(.myReview))
+                            OtherSmallButtonView(buttonText: "마이 스타벅스 리뷰", buttonImage: Image(.myReview), action: {
+                                
+                            })
                             Spacer()
                         }
                         .padding(.top, 16)
@@ -168,10 +190,12 @@ struct OtherView: View {
     struct OtherSmallButtonView: View {
         let buttonText: String
         let buttonImage: Image
+        let action: () -> Void
         
         var body: some View {
             Button {
                 print(buttonText)
+                action()
             } label: {
                 HStack(alignment: .center) {
                     buttonImage
