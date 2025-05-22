@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EEB797412DD4FBF600C81B79 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = EEB797402DD4FBF600C81B79 /* KakaoSDK */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4F80A42C2D8C3ECB003E7EF4 /* starbucks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starbucks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEB797412DD4FBF600C81B79 /* KakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = starbucks;
 			packageProductDependencies = (
+				EEB797402DD4FBF600C81B79 /* KakaoSDK */,
 			);
 			productName = starbucks;
 			productReference = 4F80A42C2D8C3ECB003E7EF4 /* starbucks.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 4F80A4232D8C3ECB003E7EF4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EEB7973F2DD4FBF600C81B79 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4F80A42D2D8C3ECB003E7EF4 /* Products */;
 			projectDirPath = "";
@@ -140,6 +149,8 @@
 /* Begin XCBuildConfiguration section */
 		4F80A4382D8C3ECC003E7EF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4F80A42E2D8C3ECB003E7EF4 /* starbucks */;
+			baseConfigurationReferenceRelativePath = Resources/Authentication/Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -203,6 +214,8 @@
 		};
 		4F80A4392D8C3ECC003E7EF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4F80A42E2D8C3ECB003E7EF4 /* starbucks */;
+			baseConfigurationReferenceRelativePath = Resources/Authentication/Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -259,6 +272,8 @@
 		};
 		4F80A43B2D8C3ECC003E7EF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4F80A42E2D8C3ECB003E7EF4 /* starbucks */;
+			baseConfigurationReferenceRelativePath = Resources/Authentication/Secret.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -291,6 +306,8 @@
 		};
 		4F80A43C2D8C3ECC003E7EF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 4F80A42E2D8C3ECB003E7EF4 /* starbucks */;
+			baseConfigurationReferenceRelativePath = Resources/Authentication/Secret.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -343,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EEB7973F2DD4FBF600C81B79 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EEB797402DD4FBF600C81B79 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEB7973F2DD4FBF600C81B79 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4F80A4242D8C3ECB003E7EF4 /* Project object */;
 }

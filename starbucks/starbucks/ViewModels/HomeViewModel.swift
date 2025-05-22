@@ -10,7 +10,8 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     var homeModel: HomeModel = .init()
-    @AppStorage("usernameStorage") private var username: String = ""
+//    @AppStorage("usernameStorage") private var username: String = ""
+    @AppStorage("nickname") private var username: String = ""
     @Published var advertisementList: [AdvertisementModel] = []
     
     init() {

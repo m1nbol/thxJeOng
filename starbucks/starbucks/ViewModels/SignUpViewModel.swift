@@ -15,6 +15,9 @@ class SignUpViewModel: ObservableObject {
     @AppStorage("emailStorage") private var emailStorage: String = ""
     @AppStorage("passwordStorage") private var passwordStorage: String = ""
     
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("nickname") private var nickname: String = ""
+    
     var isUsernameValid: Bool {
         !signUpModel.username.isEmpty
     }
@@ -35,10 +38,18 @@ class SignUpViewModel: ObservableObject {
     }
     
     func signUp() {
-        usernameStorage = signUpModel.username
-        emailStorage = signUpModel.email
-        passwordStorage = signUpModel.password
+//        usernameStorage = signUpModel.username
+//        emailStorage = signUpModel.email
+//        passwordStorage = signUpModel.password
+//        
+//        print("저장됨 \(usernameStorage), \(emailStorage)")
         
-        print("저장됨 \(usernameStorage), \(emailStorage)")
+        let credential = UserCredential(email: signUpModel.email, nickname: signUpModel.username, password: signUpModel.password)
+        CredentialKeychainService.shared.saveCredential(credential)
+        
+        isLoggedIn = true
+        nickname = credential.nickname
+        
+        print("Keychain으로 시도")
     }
 }

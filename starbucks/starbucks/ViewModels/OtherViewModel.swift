@@ -8,7 +8,7 @@
 import SwiftUI
 
 class OtherViewModel: ObservableObject {
-    @AppStorage("usernameStorage") private var username: String = ""
+    @AppStorage("nickname") private var username: String = ""
 
     var displayName: String {
         username.isEmpty ? "(작성한 닉네임)" : username

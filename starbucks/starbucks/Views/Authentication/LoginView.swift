@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     @FocusState private var focusedField: LoginInputFieldFocus?
+    @State private var showAutoLoginPrompt = false
     
     var body: some View {
         NavigationStack {
@@ -28,6 +29,11 @@ struct LoginView: View {
         }
         .fullScreenCover(isPresented: $viewModel.isLoginSuccess) {
             MainTabView()
+        }
+        .task {
+            if CredentialKeychainService.shared.loadCredential() != nil {
+                showAutoLoginPrompt = true
+            }
         }
     }
     
@@ -92,6 +98,17 @@ struct LoginView: View {
             }
             .frame(height: 20)
             
+            if showAutoLoginPrompt {
+                Button {
+                    viewModel.attemptAutoLogin()
+                } label: {
+                    Text("자동 로그인 시도하기")
+                        .font(.mainTextRegular12)
+                        .foregroundColor(.gray04)
+                        .underline()
+                }
+            }
+            
             Button {
                 viewModel.login()
             } label: {
@@ -138,25 +155,30 @@ struct LoginView: View {
 
             
             // 카카오 로그인
-            ZStack {
-                Rectangle()
-                    .frame(height: 45)
-                    .cornerRadius(6)
-                    .foregroundColor(Color.kakaoYellow)
-                HStack {
-                    Spacer().frame(width: 14)
-                    Image("kakaoLogo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
-                    Spacer()
-                    Text("카카오 로그인")
-                        .font(.mainTextMedium16)
-                    Spacer()
-                }
-                .frame(height: 45)
+            Button {
+                viewModel.kakaoLogin()
+            } label: {
+//                ZStack {
+//                    Rectangle()
+//                        .frame(height: 45)
+//                        .cornerRadius(6)
+//                        .foregroundColor(Color.kakaoYellow)
+//                    HStack {
+//                        Spacer().frame(width: 14)
+//                        Image("kakaoLogo")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 18, height: 18)
+//                        Spacer()
+//                        Text("카카오 로그인")
+//                            .font(.mainTextMedium16)
+//                        Spacer()
+//                    }
+//                    .frame(height: 45)
+//                }
+//                .padding(.horizontal, 48)
+                Image(.kakaoLoginMediumNarrow)
             }
-            .padding(.horizontal, 48)
             
             
             // 애플 로그인
